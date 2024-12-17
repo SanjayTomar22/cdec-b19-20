@@ -31,6 +31,7 @@ pipeline {
                 sudo aws ecr get-login-password --region us-west-2 | sudo docker login --username AWS --password-stdin 992382723829.dkr.ecr.us-west-2.amazonaws.com
                 sudo docker tag studentrepo:latest 992382723829.dkr.ecr.us-west-2.amazonaws.com/studentrepo:latest
                 sudo docker push 992382723829.dkr.ecr.us-west-2.amazonaws.com/studentrepo:latest
+                echo "Testing web-hook"
                 '''
             }
         }
