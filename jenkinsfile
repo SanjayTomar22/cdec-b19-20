@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/Pritam-Khergade/student-ui.git'
+            }
+        }
+        stage('Docker-install') {
+            steps {
+                sh'''
+                sudo yum install docker -y
+                sudo systemctl start docker 
+                sudo systemctl enable docker
+                '''
+            }
+        }
+        stage('Build') {
+            steps {
+                sh'''
+                sudo docker build -t studentrepo .
+                pwd
+                ls
+                '''
+            }
+        }
+        stage('Push') {
+            steps {
+                sh'''
+                sudo aws ecr get-login-password --region us-west-2 | sudo docker login --username AWS --password-stdin 992382723829.dkr.ecr.us-west-2.amazonaws.com
+                sudo docker tag studentrepo:latest 992382723829.dkr.ecr.us-west-2.amazonaws.com/studentrepo:latest
+                sudo docker push 992382723829.dkr.ecr.us-west-2.amazonaws.com/studentrepo:latest
+                '''
+            }
+        }
+    }
+}
