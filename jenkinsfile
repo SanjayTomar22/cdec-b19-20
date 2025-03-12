@@ -15,9 +15,9 @@ pipeline {
 	stage('test') {
             steps {
 		withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar') {
-  			  // some block
+  			 sh 'mvn sonar:sonar '
 		}	
-                sh 'mvn sonar:sonar '
+                
             }
         }
 	stage('deploy') {
