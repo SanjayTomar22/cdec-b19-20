@@ -14,10 +14,7 @@ pipeline {
         }
 	stage('test') {
             steps {
-                sh 'mvn sonar:sonar \
-  -Dsonar.projectKey=studentapp1 \
-  -Dsonar.host.url=http://34.224.26.192:9000 \
-  -Dsonar.login=sqp_ed7f921d92988999245caed34e08e2af646a3f6a'
+                sh 'mvn sonar:sonar '
             }
         }
 	stage('deploy') {
